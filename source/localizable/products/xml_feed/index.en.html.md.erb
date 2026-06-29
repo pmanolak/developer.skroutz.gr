@@ -204,6 +204,7 @@ Name                                                   | Type    | Length       
 [Author](#author)                                      | String  | <span class="mono">255</span>  | No | `J.K. Rowling`
 [Expiration Date](#expiration-date)                    | String  | <span class="mono">255</span>  | No | `2026-12-31`
 [Country of Origin](#country-of-origin)                | String  | <span class="mono">255</span>  | No | `Greece`
+[Specifications](#specifications)                  | Embedded XML Element | <span class="mono">-</span>    | No | `<specifications>`<br />&nbsp;&nbsp;`<spec name="...">...</spec>`<br />`</specifications>`
 [Size Variations](#size-variation-attributes)          | Embedded XML Element | <span class="mono">-</span> | No<b><sup>4</sup></b> | `<variations>`<br />&nbsp;&nbsp;`<variation>...</variation>`<br />&nbsp;&nbsp;`<variation>...</variation>`<br />`</variations>`
 
 <small><b><sup>1</sup></b> Required by all fashion items with sizes, additional images</small><br />
@@ -763,6 +764,32 @@ The country where the product was manufactured.
 ~~~
 
 
+#### Specifications
+
+An optional structured element that allows merchants to provide arbitrary product-specific
+attributes as key-value pairs. Each attribute is declared using an `<spec>` element whose
+`name` XML attribute specifies the label and whose text content is the value.
+
+These extra attributes are stored and may be used internally for catalogue enrichment.
+
+> Attribute names and values must not contain HTML notation.
+
+> If the same `name` appears more than once, the last occurrence is taken into consideration.
+
+> Do **not** use `specifications` to define information already covered by a dedicated
+  feed field (e.g. `manufacturer`, `mpn`, `color`, `size`, `author`, `country_of_origin`).
+  Such entries will be **ignored**.
+
+##### Example
+
+~~~ xml
+<specifications>
+  <spec name="Bulb Power (W)">10</spec>
+  <spec name="Type">Halogen</spec>
+</specifications>
+~~~
+
+
 ### Size Variation Attributes
 
 "Size variations" are an enhancement to the current XML feed, that introduces new nodes (children)
@@ -1088,6 +1115,10 @@ The XML excerpt below is an example of a compatible XML data feed.
           It is an ideal piece for all kinds of appearances.
         </description>
         <quantity>10</quantity>
+        <specifications>
+          <spec name="Material">Canvas</spec>
+          <spec name="Closure">Laces</spec>
+        </specifications>
       </product>
       ...
       ...
@@ -1134,6 +1165,10 @@ The XML excerpt below is an example of a compatible XML with variations data fee
           It is an ideal piece for all kinds of appearances.
         </description>
         <quantity>10</quantity>
+        <specifications>
+          <spec name="Material">Canvas</spec>
+          <spec name="Closure">Laces</spec>
+        </specifications>
         <variations>
           <variation>
             <variationid>322233.43</variationid>
@@ -1372,6 +1407,23 @@ The XML excerpt below is an example of a compatible XML with variations data fee
                     <xs:element ref="author" minOccurs="0"/>
                     <xs:element ref="expiration_date" minOccurs="0"/>
                     <xs:element ref="country_of_origin" minOccurs="0"/>
+
+                    <!-- specifications -->
+                    <xs:element name="specifications" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="spec" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="name" type="xs:string" use="required"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
 
                   </xs:all>
 
@@ -1645,6 +1697,23 @@ The XML excerpt below is an example of a compatible XML with variations data fee
                     <xs:element ref="author" minOccurs="0"/>
                     <xs:element ref="expiration_date" minOccurs="0"/>
                     <xs:element ref="country_of_origin" minOccurs="0"/>
+
+                    <!-- specifications -->
+                    <xs:element name="specifications" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="spec" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="name" type="xs:string" use="required"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
 
                     <!-- size variations -->
                     <xs:element name="variations">
