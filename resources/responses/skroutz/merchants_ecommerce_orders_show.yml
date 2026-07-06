@@ -35,6 +35,7 @@
       "address":{
         "street_name":"Πανεπιστημίου",
         "street_number":"4",
+        "floor":"1ος όροφος",
         "zip":"12345",
         "city":"Αθήνα",
         "region":"Αττικής",
