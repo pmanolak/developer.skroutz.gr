@@ -23,6 +23,7 @@ smart_cart:
   pages:
     - { title: "overview", url: "/smart_cart/" }
     - { title: "orders_api" }
+    - { title: "returns_api" }
     - { title: "fbs_api" }
     - { title: "webhook" }
   flavors:

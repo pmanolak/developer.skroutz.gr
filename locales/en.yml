@@ -43,6 +43,7 @@ en:
       orders_api: 'Orders API'
       fbs_api: 'Fulfilled by Skroutz API'
       webhook: 'Webhook'
+      returns_api: 'Returns API'
     cps_orders_api:
       short_description: 'The API to control your CPS orders in %{flavor}.'
 

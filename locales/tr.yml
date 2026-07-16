@@ -37,6 +37,7 @@ tr:
       overview: 'Overview'
       orders_api: 'Orders API'
       webhook: 'Webhook'
+      returns_api: 'Returns API'
 
   lang:
     el: 'Ελληνικά'
